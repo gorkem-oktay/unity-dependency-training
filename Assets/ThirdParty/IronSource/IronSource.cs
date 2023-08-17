@@ -1,4 +1,5 @@
 using System;
+using Random = UnityEngine.Random;
 
 public class IronSource
 {
@@ -26,6 +27,14 @@ public class IronSource
         Action<IronSourcePlacement, IronSourceAdInfo> onSuccess,
         Action<IronSourceError, IronSourceAdInfo> onFail)
     {
+        if (Random.Range(0, 2) == 0)
+        {
+            onSuccess?.Invoke(null, null);
+        }
+        else
+        {
+            onFail?.Invoke(null, null);
+        }
     }
 
     public bool isRewardedVideoAvailable()
@@ -42,6 +51,14 @@ public class IronSource
         Action<IronSourceAdInfo> onSuccess,
         Action<IronSourceError, IronSourceAdInfo> onFail)
     {
+        if (Random.Range(0, 2) == 0)
+        {
+            onSuccess?.Invoke(null);
+        }
+        else
+        {
+            onFail?.Invoke(null, null);
+        }
     }
 
     public bool isInterstitialReady()
