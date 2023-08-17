@@ -19,10 +19,6 @@ public class IronSource
     }
 
     //******************* RewardedVideo API *******************//
-    public void loadRewardedVideo()
-    {
-    }
-
     public void showRewardedVideo(
         Action<IronSourcePlacement, IronSourceAdInfo> onSuccess,
         Action<IronSourceError, IronSourceAdInfo> onFail)
@@ -37,16 +33,12 @@ public class IronSource
         }
     }
 
-    public bool isRewardedVideoAvailable()
-    {
-        return true;
-    }
+    // public bool isRewardedVideoAvailable()
+    // {
+    //     return true;
+    // }
 
     //******************* Interstitial API *******************//
-    public void loadInterstitial()
-    {
-    }
-
     public void showInterstitial(
         Action<IronSourceAdInfo> onSuccess,
         Action<IronSourceError, IronSourceAdInfo> onFail)
@@ -61,8 +53,8 @@ public class IronSource
         }
     }
 
-    public bool isInterstitialReady()
-    {
-        return true;
-    }
+    // public bool isInterstitialReady()
+    // {
+    //     return true;
+    // }
 }
