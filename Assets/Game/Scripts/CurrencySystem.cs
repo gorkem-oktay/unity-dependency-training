@@ -18,6 +18,9 @@ public class CurrencySystem : MonoBehaviour
     private void OnRewardedFinish(int amount)
     {
         Gold += amount;
+
+        Debug.Log($"Gold added: {amount}");
+
         _missionSystem.AddProgress(MissionType.CollectGold, amount);
     }
 }

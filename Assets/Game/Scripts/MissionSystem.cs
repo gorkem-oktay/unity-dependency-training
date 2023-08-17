@@ -48,6 +48,8 @@ public class MissionSystem : MonoBehaviour
 
         if (mission.IsFinished)
         {
+            Debug.Log($"Mission finished: {mission.type}");
+
             IronSource.Agent.showRewardedVideo(
                 (placement, info) => _currencySystem.AddGold(mission.reward * 2),
                 (error, info) => _currencySystem.AddGold(mission.reward)

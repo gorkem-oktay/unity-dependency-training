@@ -12,12 +12,16 @@ public class Enemy : MonoBehaviour
     [Button]
     public void Hit(Player player)
     {
+        Debug.Log($"Hit: {name} -> Player");
+
         player.TakeDamage(10);
     }
 
     public void TakeDamage(int damage)
     {
         _health -= damage;
+
+        Debug.Log($"Took damage: {damage}({name})");
 
         if (_health < 0)
         {
@@ -27,6 +31,8 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        Debug.Log($"{name} died");
+
         gameObject.SetActive(false);
         _missionSystem.AddProgress(MissionType.KillEnemy, 1);
         _currencySystem.AddGold(10);

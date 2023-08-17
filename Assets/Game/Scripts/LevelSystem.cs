@@ -20,6 +20,8 @@ public class LevelSystem : MonoBehaviour
     {
         _experience += amount;
 
+        Debug.Log($"Experience added: {amount}");
+
         if (_experience >= _goal)
         {
             _level++;
