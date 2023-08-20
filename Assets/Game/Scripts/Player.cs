@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private ChapterSystem _chapterSystem;
+
     [SerializeField] private int _health = 100;
     [SerializeField] private int _damage = 10;
-
-    [SerializeField] private ChapterSystem _chapterSystem;
 
     [Button]
     public void Hit(Enemy enemy)

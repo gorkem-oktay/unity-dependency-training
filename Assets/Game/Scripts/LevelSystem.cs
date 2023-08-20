@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelSystem : MonoBehaviour
 {
-    [SerializeField] private int _goal;
+    private int _goal = 100;
 
     [ShowInInspector] private int _level = 1;
     [ShowInInspector] private int _experience;

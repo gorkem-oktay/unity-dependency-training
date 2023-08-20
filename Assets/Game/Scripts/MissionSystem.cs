@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public enum MissionType
@@ -33,7 +32,16 @@ public class MissionSystem : MonoBehaviour
 {
     [SerializeField] private CurrencySystem _currencySystem;
 
-    [SerializeField, TableList] private List<Mission> _missions;
+    private List<Mission> _missions;
+
+    private void Awake()
+    {
+        _missions = new List<Mission>
+        {
+            new Mission(MissionType.CollectGold, 100, 10),
+            new Mission(MissionType.KillEnemy, 100, 10)
+        };
+    }
 
     public void AddProgress(MissionType type, int progress)
     {
