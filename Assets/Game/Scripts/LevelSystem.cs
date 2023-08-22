@@ -1,18 +1,26 @@
-﻿using Sirenix.OdinInspector;
+﻿using Game.Scripts;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class LevelSystem : MonoBehaviour
+public class LevelSystem
 {
     private int _goal = 100;
 
     [ShowInInspector] private int _level = 1;
     [ShowInInspector] private int _experience;
 
+    private IAdvertisementService _advertisementService;
+
+    public LevelSystem(IAdvertisementService advertisementService)
+    {
+        _advertisementService = advertisementService;
+    }
+
     public void AddExperience(int amount)
     {
-        IronSource.Agent.showRewardedVideo(
-            (placement, info) => OnRewardedFinish(amount * 2),
-            (error, info) => OnRewardedFinish(amount)
+        _advertisementService.showRewardedVideo(
+            () => OnRewardedFinish(amount * 2),
+            () => OnRewardedFinish(amount)
         );
     }
 

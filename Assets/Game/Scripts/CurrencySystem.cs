@@ -1,17 +1,25 @@
-﻿using Sirenix.OdinInspector;
+﻿using Game.Scripts;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class CurrencySystem : MonoBehaviour
+public class CurrencySystem
 {
-    [SerializeField] private MissionSystem _missionSystem;
-
     [ShowInInspector] public int Gold { get; private set; }
+
+    private IAdvertisementService _advertisementService;
+    //private MissionSystem _missionSystem;
+
+    public CurrencySystem(IAdvertisementService advertisementService /*, MissionSystem missionSystem*/)
+    {
+        _advertisementService = advertisementService;
+        //_missionSystem = missionSystem;
+    }
 
     public void AddGold(int amount)
     {
-        IronSource.Agent.showRewardedVideo(
-            (placement, info) => OnRewardedFinish(amount * 2),
-            (error, info) => OnRewardedFinish(amount)
+        _advertisementService.showRewardedVideo(
+            () => OnRewardedFinish(amount * 2),
+            () => OnRewardedFinish(amount)
         );
     }
 
@@ -21,6 +29,6 @@ public class CurrencySystem : MonoBehaviour
 
         Debug.Log($"Gold added: {amount}");
 
-        _missionSystem.AddProgress(MissionType.CollectGold, amount);
+        //_missionSystem.AddProgress(MissionType.CollectGold, amount);
     }
 }

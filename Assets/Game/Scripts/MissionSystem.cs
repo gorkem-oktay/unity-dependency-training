@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Scripts;
 using UnityEngine;
 
 public enum MissionType
@@ -28,11 +29,18 @@ public class Mission
     }
 }
 
-public class MissionSystem : MonoBehaviour
+public class MissionSystem
 {
-    [SerializeField] private CurrencySystem _currencySystem;
-
     private List<Mission> _missions;
+
+    private IAdvertisementService _advertisementService;
+    private CurrencySystem _currencySystem;
+
+    public MissionSystem(IAdvertisementService advertisementService, CurrencySystem currencySystem)
+    {
+        _advertisementService = advertisementService;
+        _currencySystem = currencySystem;
+    }
 
     private void Awake()
     {
@@ -58,9 +66,9 @@ public class MissionSystem : MonoBehaviour
         {
             Debug.Log($"Mission finished: {mission.type}");
 
-            IronSource.Agent.showRewardedVideo(
-                (placement, info) => _currencySystem.AddGold(mission.reward * 2),
-                (error, info) => _currencySystem.AddGold(mission.reward)
+            _advertisementService.showRewardedVideo(
+                () => _currencySystem.AddGold(mission.reward * 2),
+                () => _currencySystem.AddGold(mission.reward)
             );
         }
     }

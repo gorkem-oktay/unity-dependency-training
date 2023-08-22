@@ -1,11 +1,12 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private MissionSystem _missionSystem;
-    [SerializeField] private CurrencySystem _currencySystem;
-    [SerializeField] private LevelSystem _levelSystem;
+    [Inject] private MissionSystem _missionSystem;
+    [Inject] private CurrencySystem _currencySystem;
+    [Inject] private LevelSystem _levelSystem;
 
     [SerializeField] private int _health = 100;
 
@@ -37,5 +38,25 @@ public class Enemy : MonoBehaviour
         _missionSystem.AddProgress(MissionType.KillEnemy, 1);
         _currencySystem.AddGold(10);
         _levelSystem.AddExperience(10);
+    }
+
+    public class FactoryInterface : PlaceholderFactory<Object, Enemy>
+    {
+    }
+
+    public class FactoryImplementation : IFactory<Object, Enemy>
+    {
+        private DiContainer _diContainer;
+
+        public FactoryImplementation(DiContainer diContainer)
+        {
+            _diContainer = diContainer;
+        }
+
+        public Enemy Create(Object param)
+        {
+            var enemy = _diContainer.InstantiatePrefabForComponent<Enemy>(param);
+            return enemy;
+        }
     }
 }

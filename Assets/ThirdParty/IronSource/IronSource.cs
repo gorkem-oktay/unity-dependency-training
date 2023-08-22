@@ -20,7 +20,8 @@ public class IronSource
 
     public void showRewardedVideo(
         Action<IronSourcePlacement, IronSourceAdInfo> onSuccess,
-        Action<IronSourceError, IronSourceAdInfo> onFail)
+        Action<IronSourceError, IronSourceAdInfo> onFail,
+        string deviceId)
     {
         if (Random.Range(0, 2) == 0)
         {
@@ -46,13 +47,13 @@ public class IronSource
         }
     }
 
-    // public bool isRewardedVideoAvailable()
-    // {
-    //     return true;
-    // }
+    public bool isRewardedVideoAvailable()
+    {
+        return true;
+    }
 
-    // public bool isInterstitialReady()
-    // {
-    //     return true;
-    // }
+    public bool isInterstitialReady()
+    {
+        return true;
+    }
 }

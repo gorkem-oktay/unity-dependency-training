@@ -1,21 +1,31 @@
-﻿using Sirenix.OdinInspector;
+﻿using Game.Scripts;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private ChapterSystem _chapterSystem;
+    [Inject] private ChapterSystem _chapterSystem;
+    [Inject] private IAdvertisementService _advertisementService;
+    [Inject] private Enemy.FactoryInterface _enemyFactory;
 
     [SerializeField] private int _health = 100;
     [SerializeField] private int _damage = 10;
+    [SerializeField] private Enemy _enemy;
+
+    private void Awake()
+    {
+        _enemyFactory.Create(_enemy);
+    }
 
     [Button]
     public void Hit(Enemy enemy)
     {
         Debug.Log($"Hit: Player -> {enemy.name}");
 
-        IronSource.Agent.showRewardedVideo(
-            (placement, info) => enemy.TakeDamage(_damage * 2),
-            (error, info) => enemy.TakeDamage(_damage)
+        _advertisementService.showRewardedVideo(
+            () => enemy.TakeDamage(_damage * 2),
+            () => enemy.TakeDamage(_damage)
         );
     }
 
@@ -33,13 +43,13 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        IronSource.Agent.showRewardedVideo(
-            (placement, info) =>
+        _advertisementService.showRewardedVideo(
+            () =>
             {
                 _health = 100;
                 Debug.Log("Player resurrected");
             },
-            (error, info) => _chapterSystem.Restart()
+            () => _chapterSystem.Restart()
         );
     }
 }
